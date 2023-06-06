@@ -66,9 +66,9 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="/showCart"><i class="fa fa-shopping-bag"></i> <span>{{Cart::name('shopping')->getDetails()->get('items_count')}}</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span>Rs {{Cart::name('shopping')->getDetails()->get('total')}}</span></div>
                     </div>
                 </div>
             </div>
@@ -186,15 +186,19 @@
                         </div>
                         <div class="product__details__price">{{$product->formatted_amount()}}</div>
                         <p>{{$product->Description}}</p>
+                        <form method="post" action="/cart">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{$product->id}}"/>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" name="quantity" value="1">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
+                        <button type="submit" class="primary-btn">ADD TO CART</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        </form>
                         <ul>
                             <li><b>Availability</b> <span>{{$product->quantity>0 ? 'IN STOCK':'OUT OF STOCK'}}</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>

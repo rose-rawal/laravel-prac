@@ -66,7 +66,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>{{Cart::name('shoppingCart')->getDetails()->get('items_count')}}</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -163,8 +163,9 @@
                         <div class="sidebar__item">
                             <h4>Department</h4>
                             <ul>
+                                {{-- {{dd(request()->getQueryString())}} --}}
                                 @foreach ($categories as $category)
-                                <li><a href="#">{{$category->name}}</a></li>
+                                <li ><a href="/products?category={{$category->slog}}" class="{{request()->getQueryString()=='category='.$category->slog ?'text-primary':''}}">{{$category->name}}</a></li>
                                 @endforeach
                                
                             </ul>

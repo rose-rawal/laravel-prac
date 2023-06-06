@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -27,5 +28,7 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/about', function () {
     return view('about');
 });
+Route::post('/cart', [CartController::class, 'add']);
 Route::get('/categories', [CategoryController::class, 'getAction']);
 Route::get('/products/{slog}', [ProductController::class, 'show']);
+Route::get('/showCart', [CartController::class, 'show']);
