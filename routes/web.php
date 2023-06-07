@@ -32,3 +32,4 @@ Route::post('/cart', [CartController::class, 'add']);
 Route::get('/categories', [CategoryController::class, 'getAction']);
 Route::get('/products/{slog}', [ProductController::class, 'show']);
 Route::get('/showCart', [CartController::class, 'show']);
+Route::delete('/cart/remove', [CartController::class, 'delete']);

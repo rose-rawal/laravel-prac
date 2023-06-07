@@ -167,72 +167,35 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- {{dd($items)}} --}}
+                                @foreach($items as $hash=>$item)
                                 <tr>
                                     <td class="shoping__cart__item">
                                         <img src="img/cart/cart-1.jpg" alt="">
-                                        <h5>Vegetable’s Package</h5>
+                                        <h5>{{$item->getTitle()}}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        $55.00
+                                        {{$item->getPrice()}}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="1">
+                                                <input type="text" value="{{$item->getQuantity()}}">
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        $110.00
+                                        Rs {{$item->getDetails()->total_price}}
                                     </td>
-                                    <td class="shoping__cart__item__close">
+                                    <td class="shoping__cart__item__close" onclick="deleteCart('{{$hash}}')" >
                                         <span class="icon_close"></span>
+                                        <form method="post" action="/cart/remove" id="deleteform-{{$hash}}">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="img/cart/cart-2.jpg" alt="">
-                                        <h5>Fresh Garden Vegetable</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $39.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $39.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="img/cart/cart-3.jpg" alt="">
-                                        <h5>Organic Bananas</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $69.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $69.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -261,8 +224,8 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Subtotal <span>Rs {{$subtotal}}</span></li>
+                            <li>Total <span>Rs {{$total}}</span></li>
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
@@ -271,4 +234,19 @@
         </div>
     </section>
     <!-- Shoping Cart Section End -->
+    @endsection
+
+    @section('scripts')
+    <script>
+        function deleteCart(hash)
+        {
+            let useConfirmation=confirm('Are you sure you want to delete this item');
+            console.log(useConfirmation)
+            if(!useConfirmation){
+                return
+            }
+            let form=$('deleteForm-'+hash)
+            console.log(form);
+        }
+    </script>
     @endsection
