@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -33,3 +34,4 @@ Route::get('/categories', [CategoryController::class, 'getAction']);
 Route::get('/products/{slog}', [ProductController::class, 'show']);
 Route::get('/showCart', [CartController::class, 'show']);
 Route::delete('/cart/remove', [CartController::class, 'delete']);
+Route::get('/checkout', [CheckoutController::class, 'show']);

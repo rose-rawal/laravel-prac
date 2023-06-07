@@ -36,4 +36,12 @@ class CartController extends Controller
 
         ]);
     }
+    public function delete(Request $request)
+    {
+        $hash = $request->itemHash;
+        // dd($hash);
+        $shoppingCart = Cart::name('shopping');
+        $shoppingCart->removeItem($hash);
+        return back();
+    }
 }

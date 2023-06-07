@@ -66,7 +66,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="/showCart"><i class="fa fa-shopping-bag"></i> <span>{{Cart::name('shopping')->getDetails()->get('items_count')}}</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -179,9 +179,12 @@
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
+                                            {{-- <form method="GET" action="/cart/update">
+                                                @csrf --}}
                                             <div class="pro-qty">
-                                                <input type="text" value="{{$item->getQuantity()}}">
+                                                <input type="text" name="quantity" value="{{$item->getQuantity()}}">
                                             </div>
+                                            {{-- </form> --}}
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
@@ -192,6 +195,7 @@
                                         <form method="post" action="/cart/remove" id="deleteform-{{$hash}}">
                                             @csrf
                                             @method('DELETE')
+                                            <input type="hidden" name="itemHash" value={{$hash}}>
                                         </form>
                                     </td>
                                 </tr>
@@ -227,7 +231,7 @@
                             <li>Subtotal <span>Rs {{$subtotal}}</span></li>
                             <li>Total <span>Rs {{$total}}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
@@ -241,12 +245,12 @@
         function deleteCart(hash)
         {
             let useConfirmation=confirm('Are you sure you want to delete this item');
-            console.log(useConfirmation)
             if(!useConfirmation){
-                return
+                return;
             }
-            let form=$('deleteForm-'+hash)
-            console.log(form);
+            let form=$('#deleteform-'+hash)           
+          
+            form.submit();
         }
     </script>
     @endsection
