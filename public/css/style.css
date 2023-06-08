@@ -2108,7 +2108,12 @@ ol {
 .checkout__input {
 	margin-bottom: 24px;
 }
-
+.checkout__input.invalid input{
+	border: 1px solid red;
+}
+.checkout__input.invalid small{
+	color: red;
+}
 .checkout__input p {
 	color: #1c1c1c;
 	margin-bottom: 20px;
